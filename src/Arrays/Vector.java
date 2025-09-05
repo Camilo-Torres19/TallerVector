@@ -117,6 +117,35 @@ public class Vector {
         eliminar_posicion(pos);
     }
 
+    public void eliminar_antes(int pos) {
+    if (this.cantidad == 0) {
+        System.out.println("Error: Vector vacio (subdesbordamiento)");
+        return;
+    }
+
+    if (pos <= 0 || pos >= this.cantidad) {
+        System.out.println("Error: No existe un elemento antes de la posicion indicada");
+        return;
+    }
+
+    eliminar_posicion(pos - 1);
+}
+    
+    public void eliminar_despues(int pos) {
+    if (this.cantidad == 0) {
+        System.out.println("Error: Vector vacio (subdesbordamiento)");
+        return;
+    }
+
+    if (pos < 0 || pos >= this.cantidad - 1) {
+        System.out.println("Error: No existe un elemento después de la posicion indicada");
+        return;
+    }
+
+    eliminar_posicion(pos + 1);
+}
+    
+    
     public void eliminar_posicion(int pos) {
         if (this.cantidad == 0) {
             System.out.println("Error: Vector vacío (subdesbordamiento)");
@@ -134,22 +163,47 @@ public class Vector {
         System.out.println("Eliminacion de Dato realizada");
         this.cantidad--;
     }
+    
+    public void eliminar_repetidos(int dato) {
+    if (this.cantidad == 0) {
+        System.out.println("Error: Vector vacío (subdesbordamiento)");
+        return;
+    }
+
+    if (buscar_lineal(dato) == -1) {
+        System.out.println("El dato " + dato + " no se encuentra en el vector");
+        return;
+    }
+
+    
+    for (int i = 0; i < this.cantidad; i++) {
+        if (A[i] == dato) {
+            for (int k = i; k < this.cantidad - 1; k++) {
+                A[k] = A[k + 1];
+            }
+            this.cantidad--;
+            i--; 
+        }
+    }
+    }  
+    
     //Metodos de Busqueda
 
-    public void buscar_lineal(int dato) {
+    public int buscar_lineal(int dato) {
         if (this.cantidad == 0) {
             System.out.println("El vector está vacío");
-            return;
+            
         }
 
         for (int k = 0; k < this.cantidad; k++) {
             if (A[k] == dato) {
                 System.out.println("Dato " + dato + " encontrado en la posición: " + k);
-                return;
+               return 1;
             }
         }
 
         System.out.println("Dato " + dato + " no encontrado en el vector");
+        return -1; 
     }
 
     public void buscar_derecha_izquierda(int dato) {
